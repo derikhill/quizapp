@@ -5,7 +5,7 @@
     <title>Bread Quiz</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/quiz.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/quiz.js"></script>
   </head>
 <body>
@@ -14,11 +14,13 @@
     <h1>Test your knowledge about bread.</h1>
   </div>        
   <div id="quiz-wrapper">
-    <div class="container">    
+    <div class="container">  
+      <div id="startButton"><button id="start">Start Quiz</button></div>  
       <div id="questionSection"></div>
       <div id="choiceSection"></div> 
-      <div id="factSection">
-        <input type="button" id="nextQuestion" value="Next Question">
+      <div id="factSection"></div>
+      <div id="nextQuestion">
+        <input type="button" value="Next Question">
       </div>
     </div> 
   </div>

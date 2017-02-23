@@ -1,4 +1,55 @@
-$(document).ready(function() {
+currentQuestion = 0;
+score = 0;
+
+
+function postQuestions() {
+	$('#factSection, #nextQuestion').hide();
+	if(currentQuestion < quiz.length) {
+	// POST QUESTIONS
+	question = quiz[currentQuestion].question;
+	$("#questionSection").html("<h2 class='questionLine'>" + question + "</h2>");
+	// POST CHOICES
+	choices = quiz[currentQuestion].choices;
+	choices.forEach(function(option) {
+		$("#choiceSection").append("<li class='choiceItems'>" + option + "</li>");
+	});
+	// SUBMIT BUTTON
+	$("#choiceSection").append("<li class='checkAnswer'>Check Answer</li>");
+	buttons();
+	currentQuestion++;
+	}
+}
+
+function buttons() {
+$(".checkAnswer").on("click", function() {
+	$(this).css('background-color','#366ed8');
+	$('#choiceSection').html('');
+	facts();
+	// postQuestions();
+	console.log(currentQuestion);
+});
+$(".choiceItems").on("click",function () {
+    $(this).css('background-color','#e1e1e1');
+   });
+}
+
+function facts() {
+	factsCount = 0;
+	fact = quiz[factsCount].fact;
+	$('.questionLine, .choiceItems, .checkAnswer').remove();
+	if(factsCount < fact.length) {
+		$("#factSection").html("<p class='fact'>" + fact + "</p>");
+		$("#factSection").show();
+		$("#nextQuestion").show();
+	}
+    // $('#factSection').append("<p class='fact'>" + fact + "</p>");
+    $("#nextQuestion").on("click", function() {
+    	// currentQuestion++;
+     	console.log(quiz[factsCount].fact);  
+    	postQuestions(); 
+
+    });
+}
 
 var quiz = [
 	{
@@ -9,7 +60,7 @@ var quiz = [
 			'Acetobacter fabarum', 
 			'Enteroccoccus faecalis'
 			],
-		answer: "1",
+		answer: 1,
 		fact: "Lactobacillus sanfranciscensis is a microorganism associated with the sourdough culture found in the commonly known San Francicso sourdough bread."
 	},
 	{
@@ -20,7 +71,7 @@ var quiz = [
 			'Stretch and fold', 
 			'Singing songs to it'
 			],
-		answer: "2",
+		answer: 2,
 		fact: "One of the easiest methods to knead dough is by stretching and folding it onto itself. This takes less effort and is easier on the dough.",
 	},
 	{
@@ -31,7 +82,7 @@ var quiz = [
 			'Water, flour, sugar, salt, yeast', 
 			'Milk, flour, butter, eggs, sugar, salt, yeast'
 			],
-		answer: "0",
+		answer: 0,
 		fact: "The most basic list of ingredients to make bread is as simple as flour, water, & salt. Sourdough bread is leavened naturally using only flour and water.",
 	},
 	{
@@ -42,7 +93,7 @@ var quiz = [
 			'Placing in a loaf tin', 
 			'Mixing ingredients'
 			],
-		answer: "1",
+		answer: 1,
 		fact: "The bench rest is a very important step before shaping the loaf. It helps relax the gluten making the dough easier to handle",
 	},
 	{
@@ -53,79 +104,15 @@ var quiz = [
 			'As an accompaniment to anything else you are eating', 
 			'All of the above'
 			],
-		answer: "3",
+		answer: 3,
 		fact: "Why enjoy real bread with just one of these ways when you can enjoy it with all of these methods!",
 	}
 ];
 
-currentQuestion = 0;
-score = 0;
-
-function _(x) {
-	return document.getElementById(x);
-}
-
-function postQuestions() {
-	$("#factSection").hide();
-	if(currentQuestion < quiz.length) {
-	// POST QUESTIONS
-	question = quiz[currentQuestion].question;
-	_("questionSection").innerHTML += "<h2 class='questionLine'>" + question + "</h2>";
-
-	// POST CHOICES
-	choices = quiz[currentQuestion].choices;
-	for (var i = 0; i < choices.length; i++) {
-		_("choiceSection").innerHTML += "<li class='choiceItems'>" + choices[i] + "</li>";
-	}
-
-	/*fact = quiz[currentQuestion].fact;
-	for (var i = 0; i < fact.length; i++){
-    _('factSection').innerHTML += "<p class='fact'>" + fact + "</p>";
-	$(this).hide();
-	}
-*/
-	// SUBMIT BUTTON
-	_("choiceSection").innerHTML += "<li class='checkAnswer'>Check Answer</li>";
-	buttons();
-	
-	}
-}
-
-
-function buttons() {
-$(".checkAnswer").on("click", function() {
-	$(this).css('background-color','#366ed8');
-	facts();
-
+$(document).ready(function() {
+$('#start').click(function() {
+	$("#factSection, #startButton").hide();
+	postQuestions();
 });
-$(".choiceItems").on("click",function () {
-    $(this).css('background-color','#e1e1e1');
-   });
-}
-
-function facts() {
-	//if (quiz[currentQuestion].choices[])
-	$(".questionLine").on("click").remove();
-	$(".choiceItems").on("click").remove();
-	$(".checkAnswer").on("click").remove();
-	$("#factSection").show();
-	$("#nextQuestion").show();
-
-	fact = quiz[currentQuestion].fact;
-	for (var i = 0; i < quiz.length; i++){
-    _('factSection').innerHTML += "<p class='fact'>" + fact + "</p>";
-//	$(this).hide();
-}
-
-    $("#nextQuestion").on("click", function() {
-    	currentQuestion++;
-     	console.log(currentQuestion);  
-    	postQuestions(); 
-
-    });
-}
-
-
-postQuestions();
 
 });
